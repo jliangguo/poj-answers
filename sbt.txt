@@ -1,0 +1,1 @@
+-Dhttp.proxyHost=loalhost -Dhttp.proxyPort=8080
