@@ -3,6 +3,13 @@ package poj;
 import java.util.Scanner;
 
 /**
+ * 给定长度为N的字符串S，要构造一个长度为N的字符串T。起初，T是一个字符串，随后反复进行下列任意操作。
+ *
+ * - 从S的头部删除一个字符，加到T的尾部
+ * - 从S的尾部删除一个字符，加到T的尾部
+ *
+ * 目标是要构造字典序尽可能小的字符串T。
+ *
  * Created by andy on 2017/3/1.
  */
 public class P3617 {
@@ -16,6 +23,7 @@ public class P3617 {
         }
 
         int a = 0, b = N - 1, lineNum = 0;
+        //TODO  如何破解双重循环的思维障碍？
         while (a <= b) {
             boolean left = false;
             for (int i = 0; a + i <= b; i++) {
