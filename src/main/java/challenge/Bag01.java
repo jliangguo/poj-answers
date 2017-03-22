@@ -1,5 +1,7 @@
 package challenge;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -23,6 +25,11 @@ public class Bag01 {
             v[i] = in.nextInt();
         }
 
+//        solve1(N, W, w, v);
+        solve2(N, W, w, v);
+    }
+
+    private static void solve1(int N, int W, int[] w, int[] v) {
         // memory array
         int[][] dp = new int[N + 1][W + 1];
         for (int i = 0; i <= N; i++) {
@@ -40,5 +47,36 @@ public class Bag01 {
             }
         }
         System.out.println(dp[0][W]);
+    }
+
+    private static void solve2(int N, int W, int[] w, int[] v) {
+        int maxV = v[0];
+        for (int i = 1; i < N; i++) {
+            if (maxV < v[i])
+                maxV = v[i];
+        }
+
+        int INF = 1000000000;// 视问题规模选择
+        int[][] dp = new int[N + 1][N * maxV + 1];
+        for (int i = 0; i <= N; i++)
+            dp[i] = new int[N * maxV + 1];
+        for (int i = 0; i <= N * maxV; i++) {
+            dp[0][i] = INF;
+        }
+        dp[0][0] = 0;
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j <= N * maxV; j++) {
+                if (j < v[i]) {
+                    dp[i + 1][j] = dp[i][j];
+                } else {
+                    dp[i + 1][j] = Math.min(dp[i][j], dp[i][j - v[i]] + w[i]);
+                }
+            }
+        }
+
+        int res = 0;
+        for (int i = 0; i <= N * maxV; i++) if (dp[N][i] <= W) res = i;
+        System.out.println(res);
     }
 }
